@@ -2,7 +2,7 @@ init: docker-down-clear \
 	api-clear \
 	docker-pull docker-build docker-up \
 	api-init \
-	local-var-permissions
+	local-permissions
 
 up: docker-up
 down: docker-down
@@ -36,10 +36,10 @@ api-permissions:
 	docker run --rm -v ${PWD}:/app -w /app alpine chmod 777 var
 
 api-composer-install:
-	docker-compose run --rm php-cli composer install
+	docker-compose run --rm php-fpm composer install
 
 api-composer-update:
-	docker-compose run --rm php-cli composer update
+	docker-compose run --rm php-fpm composer update
 
-local-var-permissions:
-	sudo chown ${USER}:${USER} ./ -R
+local-permissions:
+	sudo chown ${USER}:${USER} ./ -R && sudo chmod 777 var -R
