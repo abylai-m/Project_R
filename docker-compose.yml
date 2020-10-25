@@ -22,6 +22,8 @@ services:
       APP_ENV: dev
       APP_DEBUG: 1
       PHP_IDE_CONFIG: serverName=API
+    depends_on:
+      - postgresql
 
   php-cli:
     build:
@@ -29,3 +31,16 @@ services:
       dockerfile: development/php-cli/Dockerfile
     volumes:
       - ./:/app
+    depends_on:
+      - postgresql
+
+  postgresql:
+    image: postgres:13-alpine
+    volumes:
+      - ./var/docker/postgresql:/var/lib/postgresql/data
+    environment:
+      - "POSTGRES_PASSWORD=password"
+      - "POSTGRES_USER=user"
+      - "POSTGRES_DB=project_r"
+    ports:
+      - "54322:5432"
