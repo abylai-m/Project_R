@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Table;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use function Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Table|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,32 +21,30 @@ class TableRepository extends ServiceEntityRepository
         parent::__construct($registry, Table::class);
     }
 
-    // /**
-    //  * @return Table[] Returns an array of Table objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function setReservation(Table $table, ?User $user): void
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $table->setUser($user);
 
-    /*
-    public function findOneBySomeField($value): ?Table
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $this->getEntityManager()->flush();
     }
-    */
+
+    /**
+     * @return Table[]
+     */
+    public function findFreeOrReservedByUserTables(User $user): array
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        return $qb
+            ->select('t')
+            ->from($this->getClassName(), 't')
+            ->where($qb->expr()->orX(
+                $qb->expr()->eq('t.user', ':user'),
+                $qb->expr()->isNull('t.user')
+            ))
+            ->setParameters(['user' => $user])
+            ->orderBy('t.number', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }

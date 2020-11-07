@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tables{% endblock %}
+
+{% block body %}
+    <div class="card-columns">
+        {% for table in tables %}
+            <div class="card text-center" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Столик № {{ table.number }}</h5>
+                    {% if table.user == app.user %}
+                        <form action="{{ path('app_table_cancel_reserve') }}" method="post">
+                            <input name="tableId" type="hidden" value="{{ table.id }}">
+                            <button type="submit" class="btn btn-warning">Отменить заказ</button>
+                        </form>
+                    {% else %}
+                        <form action="{{ path('app_table_reserve') }}" method="post">
+                            <input name="tableId" type="hidden" value="{{ table.id }}">
+                            <button type="submit" class="btn btn-primary">Заказать</button>
+                        </form>
+                    {% endif %}
+
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
