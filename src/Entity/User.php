@@ -4,14 +4,18 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
 class User implements UserInterface
 {
+    public const ROLE_CUSTOMER = 'ROLE_CUSTOMER';
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -34,6 +38,11 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Table::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $table;
 
     public function getId(): ?int
     {
@@ -81,6 +90,13 @@ class User implements UserInterface
         return $this;
     }
 
+    public function addRole(string $role): self
+    {
+        $this->roles[] = $role;
+
+        return $this;
+    }
+
     /**
      * @see UserInterface
      */
@@ -111,5 +127,23 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getTable(): ?Table
+    {
+        return $this->table;
+    }
+
+    public function setTable(?Table $table): self
+    {
+        $this->table = $table;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newUser = null === $table ? null : $this;
+        if ($table->getUser()->getId() !== $newUser->getId()) {
+            $table->setUser($newUser);
+        }
+
+        return $this;
     }
 }
