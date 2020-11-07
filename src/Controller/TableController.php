@@ -28,7 +28,7 @@ class TableController extends AbstractController
         $user = $this->getUser();
         $tables = $this->tableRepository->findFreeOrReservedByUserTables($user);
 
-        return $this->render('customer/reserve-table/free-tables-list.html.twig', [
+        return $this->render('customer/table/free-tables-list.html.twig', [
             'tables' => $tables
         ]);
     }
