@@ -23,12 +23,6 @@
                         <a class="nav-link" href="{{ path('app_homepage') }}">Home <span class="sr-only">(current)</span></a>
                     </li>
 
-                    {% if is_granted('ROLE_USER') %}
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
-                        </li>
-                    {% endif %}
-
                     {% if is_granted('ROLE_CUSTOMER') %}
                         <li class="nav-item active">
                             <a class="nav-link" href="{{ path('app_table_list') }}">Reserve table</a>
@@ -41,7 +35,11 @@
                         </li>
                     {% endif %}
 
-                    {% if not is_granted('ROLE_USER') %}
+                    {% if is_granted('ROLE_USER') %}
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                        </li>
+                    {% else %}
                         <li class="nav-item active">
                             <a class="nav-link" href="{{ path('app_login') }}">Login</a>
                         </li>
