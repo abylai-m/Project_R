@@ -9,9 +9,9 @@
                 <div class="card-body">
                     <h5 class="card-title">Столик № {{ table.number }}</h5>
                     {% if table.user %}
-                        <p>{{ table.user ? table.user.username : '' }}</p>
+                        <p>{{ table.user.username }}</p>
 
-                        <form action="{{ path('app_table_cancel_reserve') }}" method="post">
+                        <form action="{{ path('admin.table.cancel-reserve') }}" method="post">
                             <input name="tableId" type="hidden" value="{{ table.id }}">
                             <button type="submit" class="btn btn-warning">Отменить заказ</button>
                         </form>
