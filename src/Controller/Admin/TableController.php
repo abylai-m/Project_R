@@ -20,7 +20,7 @@ class TableController extends AbstractController
      */
     public function tablesListAction()
     {
-        $tables = $this->tableRepository->findAll();
+        $tables = $this->tableRepository->findAllOrderedByNumber();
 
         return $this->render('admin/tables.html.twig', [
             'tables' => $tables

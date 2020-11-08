@@ -21,13 +21,6 @@ class TableRepository extends ServiceEntityRepository
         parent::__construct($registry, Table::class);
     }
 
-    public function setReservation(Table $table, ?User $user): void
-    {
-        $table->setUser($user);
-
-        $this->getEntityManager()->flush();
-    }
-
     /**
      * @return Table[]
      */
@@ -47,4 +40,23 @@ class TableRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findAllOrderedByNumber(): array
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        return $qb
+            ->select('t')
+            ->from($this->getClassName(), 't')
+            ->orderBy('t.number', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+    public function setReservation(Table $table, ?User $user): void
+    {
+        $table->setUser($user);
+
+        $this->getEntityManager()->flush();
+    }
+
 }

@@ -8,7 +8,14 @@
             <div class="card text-center" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">Столик № {{ table.number }}</h5>
-                    <p>{{ table.user ? table.user.username : '' }}</p>
+                    {% if table.user %}
+                        <p>{{ table.user ? table.user.username : '' }}</p>
+
+                        <form action="{{ path('app_table_cancel_reserve') }}" method="post">
+                            <input name="tableId" type="hidden" value="{{ table.id }}">
+                            <button type="submit" class="btn btn-warning">Отменить заказ</button>
+                        </form>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}
