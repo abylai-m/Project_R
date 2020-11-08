@@ -9,9 +9,10 @@
             <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
         {% endblock %}
     </head>
+
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Project R</a>
+            <a class="navbar-brand" href="{{ path('app_homepage') }}">Project R</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -22,6 +23,18 @@
                         <a class="nav-link" href="{{ path('app_homepage') }}">Home <span class="sr-only">(current)</span></a>
                     </li>
 
+                    {% if is_granted('ROLE_CUSTOMER') %}
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ path('app_table_list') }}">Reserve table</a>
+                        </li>
+                    {% endif %}
+
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ path('admin.tables') }}">Tables</a>
+                        </li>
+                    {% endif %}
+
                     {% if is_granted('ROLE_USER') %}
                         <li class="nav-item active">
                             <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
@@ -30,9 +43,17 @@
                         <li class="nav-item active">
                             <a class="nav-link" href="{{ path('app_login') }}">Login</a>
                         </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ path('app_register') }}">Sign up</a>
+                        </li>
                     {% endif %}
                 </ul>
             </div>
+            {% if is_granted('ROLE_USER') %}
+                <p>
+                    {{ app.user.username }}
+                </p>
+            {% endif %}
         </nav>
 
         <main>

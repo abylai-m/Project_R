@@ -41,5 +41,6 @@ api-composer-install:
 api-composer-update:
 	docker-compose run --rm php-fpm composer update
 
+
 local-permissions:
 	sudo chown ${USER}:${USER} ./ -R && sudo chmod 777 var -R
