@@ -18,4 +18,9 @@ class DishRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Dish::class);
     }
+
+    public function findAllAndByUser(int $userId): array
+    {
+
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\DishRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\UserDish;
 
 /**
  * @ORM\Entity(repositoryClass=DishRepository::class)
@@ -22,6 +23,11 @@ class Dish
      */
     private $name;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserDish::class, mappedBy="dish", cascade={"persist", "remove"})
+     */
+    private $userDishes;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -37,5 +43,13 @@ class Dish
         $this->name = $name;
 
         return $this;
+    }
+
+    /**
+     * @return UserDish[]
+     */
+    public function getUserDishes(): array
+    {
+        return $this->userDishes;
     }
 }

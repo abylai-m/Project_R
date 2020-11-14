@@ -45,11 +45,6 @@ class User implements UserInterface
      */
     private $table;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="user")
-     */
-    private $order;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -149,18 +144,6 @@ class User implements UserInterface
         if ($table->getUser()->getId() !== $newUser->getId()) {
             $table->setUser($newUser);
         }
-
-        return $this;
-    }
-
-    public function getOrder(): ?Order
-    {
-        return $this->order;
-    }
-
-    public function setOrder(?Order $order): self
-    {
-        $this->order = $order;
 
         return $this;
     }

@@ -15,6 +15,7 @@ class DishFixture extends BaseFixture
 
             return $dish;
         });
+
         $manager->flush();
     }
 }
