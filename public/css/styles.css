@@ -9,3 +9,28 @@ html {height:100%}
 main {
     margin-top: 40px;
 }
+
+/* Users list */
+.users-list {
+    width: 400px;
+}
+
+.users-list-edit-user {
+    position: absolute;
+    right: 0;
+    padding-right: 10px;
+}
+
+.create-user-button {
+    margin-bottom: 30px;
+}
+
+/* User edit */
+.user-edit-form {
+    width: 400px;
+}
+
+/* User create */
+.user-create-form {
+    width: 400px;
+}

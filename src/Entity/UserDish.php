@@ -4,12 +4,15 @@ namespace App\Entity;
 
 use App\Repository\UserDishRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserDishRepository::class)
  */
 class UserDish
 {
+    use TimestampableEntity;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

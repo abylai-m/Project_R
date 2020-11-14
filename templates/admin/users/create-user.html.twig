@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create user{% endblock %}
+
+{% block body %}
+    <form action="{{ path('admin.user.create.action') }}" method="post" class="user-create-form">
+        <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Введите e-mail" required>
+        </div>
+        <div class="form-group">
+            <label for="role">Роль</label>
+            <select name="role" id="role" class="form-control" required>
+                {% for key, role in roles %}
+                    <option value="{{ key }}">{{ role }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="password">Пароль</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Обновить</button>
+    </form>
+{% endblock %}

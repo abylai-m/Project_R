@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit user{% endblock %}
+
+{% block body %}
+    <form action="{{ path('admin.user.edit.action') }}" method="post" class="user-edit-form">
+        <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}">
+        </div>
+        <input type="hidden" name="userId" value="{{ user.id }}">
+        <button type="submit" class="btn btn-primary">Обновить</button>
+    </form>
+{% endblock %}
