@@ -56,6 +56,27 @@ class UserDishRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findUserDishesWithCountByDate(\DateTime $date): array
+    {
+        $from = new \DateTime($date->format("Y-m-d")." 00:00:00");
+        $to   = new \DateTime($date->format("Y-m-d")." 23:59:59");
+
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        return $qb
+            ->select('d.name', 'count(d.name) as count')
+            ->from($this->getClassName(), 'ud')
+            ->join('ud.dish', 'd')
+            ->where($qb->expr()->between('ud.createdAt', ':from', ':to'))
+            ->setParameters([
+                'from' => $from,
+                'to' => $to
+            ])
+            ->groupBy('d.name')
+            ->getQuery()
+            ->getResult();
+    }
+
     public function create(Dish $dish, User $user): UserDish
     {
         $userDish = (new UserDish())

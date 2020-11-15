@@ -37,7 +37,7 @@
                     <h5 class="card-title">{{ dish.name }}</h5>
                     <form action="{{ path('dish_order') }}" method="post">
                         <input name="dishId" type="hidden" value="{{ dish.id }}">
-                        <button type="submit" class="btn btn-warning">Заказать</button>
+                        <button type="submit" class="btn btn-primary">Заказать</button>
                     </form>
                 </div>
             </div>
