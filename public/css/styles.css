@@ -40,3 +40,8 @@ main {
     width: 400px;
     margin-bottom: 30px;
 }
+
+/* Dish report */
+.dish-report-form {
+    width: 400px;
+}

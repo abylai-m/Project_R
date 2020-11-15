@@ -12,6 +12,7 @@ class DishFixture extends BaseFixture
         $this->createMany(5, 'dishes', function(int $i) {
             $dish = new Dish();
             $dish->setName($this->faker->text(5));
+            $dish->setPrice($this->faker->randomNumber(5));
 
             return $dish;
         });
