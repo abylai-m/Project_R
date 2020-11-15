@@ -34,3 +34,9 @@ main {
 .user-create-form {
     width: 400px;
 }
+
+/* Dish statistics */
+.dish-statistics-form {
+    width: 400px;
+    margin-bottom: 30px;
+}

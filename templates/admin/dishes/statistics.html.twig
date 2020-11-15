@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dish statistics{% endblock %}
+
+{% block body %}
+    <form action="{{ path('admin.dish.statistics') }}" method="post" class="dish-statistics-form">
+        <div class="form-group">
+            <label for="date">Дата</label>
+            <input type="date" class="form-control" id="date" name="date" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Найти</button>
+    </form>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Dish</th>
+                <th scope="col">Count</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for dish in dishes %}
+            <tr>
+                <td>{{ dish.name }}</td>
+                <td>{{ dish.count }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
