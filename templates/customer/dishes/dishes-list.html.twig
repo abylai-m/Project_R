@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dishes{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/dish.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h2>Ваши заказы</h2>
+    <div class="card-columns">
+        {% if userDishes|length > 0 %}
+            {% for userDish in userDishes %}
+                <div class="card text-center" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ userDish.dish.name }}</h5>
+                            <form action="{{ path('dish_cancel_order') }}" method="post">
+                                <input name="dishId" type="hidden" value="{{ userDish.dish.id }}">
+                                <button type="submit" class="btn btn-warning">Отменить заказ</button>
+                            </form>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            У вас нет заказов
+        {% endif %}
+    </div>
+
+    <br/>
+
+    <h2>Блюда</h2>
+    <div class="card-columns">
+        {% for dish in dishesFilteredByUserDishes %}
+            <div class="card text-center" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ dish.name }}</h5>
+                    <form action="{{ path('dish_order') }}" method="post">
+                        <input name="dishId" type="hidden" value="{{ dish.id }}">
+                        <button type="submit" class="btn btn-warning">Заказать</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
