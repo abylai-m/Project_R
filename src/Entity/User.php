@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -14,8 +15,16 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
+    use TimestampableEntity;
+
     public const ROLE_CUSTOMER = 'ROLE_CUSTOMER';
+    public const ROLE_EMPLOYEE = 'ROLE_EMPLOYEE';
     public const ROLE_ADMIN = 'ROLE_ADMIN';
+
+    public const ROLES_MAPPING = [
+        self::ROLE_EMPLOYEE => 'Сотрудник',
+        self::ROLE_CUSTOMER => 'Покупатель'
+    ];
 
     /**
      * @ORM\Id
