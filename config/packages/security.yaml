@@ -30,6 +30,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
          - { path: ^/admin/dish/add-report, roles: ROLE_EMPLOYEE }
+         - { path: ^/admin/salary, roles: ROLE_EMPLOYEE }
          - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

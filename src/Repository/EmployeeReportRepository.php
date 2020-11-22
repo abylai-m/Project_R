@@ -31,4 +31,30 @@ class EmployeeReportRepository extends ServiceEntityRepository
         $this->getEntityManager()->persist($report);
         $this->getEntityManager()->flush();
     }
+
+    /**
+     * @return EmployeeReport[]
+     */
+    public function findReportedDishOrdersByDate(int $userId, \DateTime $date): array
+    {
+        $from = new \DateTime($date->format("Y-m-d")." 00:00:00");
+        $to   = new \DateTime($date->format("Y-m-d")." 23:59:59");
+
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        return $qb
+            ->select('er', 'ud', 'd')
+            ->from($this->getClassName(), 'er')
+            ->join('er.userDish', 'ud')
+            ->join('ud.dish', 'd')
+            ->where($qb->expr()->eq('er.user', ':userId'))
+            ->andWhere($qb->expr()->between('er.createdAt', ':from', ':to'))
+            ->setParameters([
+                'userId' => $userId,
+                'from' => $from,
+                'to' => $to
+            ])
+            ->getQuery()
+            ->getResult();
+    }
 }
