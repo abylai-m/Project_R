@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Salary{% endblock %}
+
+{% block body %}
+    <form action="{{ path('admin.salary') }}" method="post" class="salary-form">
+        <div class="form-group">
+            <label for="date">Дата</label>
+            <input type="date" class="form-control" id="date" name="date" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Найти</button>
+    </form>
+
+    <div>
+        {% if salary is not null %}
+            <p>Зарплата за день: {{ salary }}</p>
+        {% endif %}
+    </div>
+{% endblock %}

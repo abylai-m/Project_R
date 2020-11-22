@@ -77,11 +77,12 @@ class UserDishRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function create(Dish $dish, User $user): UserDish
+    public function create(Dish $dish, User $user = null, \DateTime $createdDate): UserDish
     {
         $userDish = (new UserDish())
             ->setDish($dish)
-            ->setUser($user);
+            ->setUser($user)
+            ->setCreatedAt($createdDate);
 
         $this->getEntityManager()->persist($userDish);
         $this->getEntityManager()->flush();

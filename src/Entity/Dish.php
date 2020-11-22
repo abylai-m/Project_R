@@ -26,6 +26,11 @@ class Dish
     private $name;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $price;
+
+    /**
      * @ORM\OneToMany(targetEntity=UserDish::class, mappedBy="dish", cascade={"persist", "remove"})
      */
     private $userDishes;
@@ -53,5 +58,17 @@ class Dish
     public function getUserDishes(): array
     {
         return $this->userDishes;
+    }
+
+    public function getPrice(): int
+    {
+        return $this->price;
+    }
+
+    public function setPrice(int $price): self
+    {
+        $this->price = $price;
+
+        return $this;
     }
 }

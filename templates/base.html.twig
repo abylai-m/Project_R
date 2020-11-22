@@ -51,6 +51,15 @@
                         </li>
                     {% endif %}
 
+                    {% if is_granted('ROLE_EMPLOYEE') %}
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ path('admin.dish.add-report.view') }}">Add report</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ path('admin.salary') }}">Salary</a>
+                        </li>
+                    {% endif %}
+
                     {% if is_granted('ROLE_USER') %}
                         <li class="nav-item active">
                             <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
