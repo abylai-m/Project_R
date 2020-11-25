@@ -31,7 +31,7 @@ class DishService
             return;
         }
 
-        $this->userDishRepository->create($dish, $user);
+        $this->userDishRepository->create($dish, $user, new \DateTime());
     }
 
     public function cancelOrderDish(User $user, int $dishId): void
