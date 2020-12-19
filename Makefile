@@ -4,6 +4,7 @@ init: docker-down-clear \
 	api-init \
 	local-permissions
 
+start: docker-up local-permissions
 up: docker-up
 down: docker-down
 restart: down up
